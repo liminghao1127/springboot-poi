@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+</head>
+<body>
+<input type="button" value="导出Excel" onclick="exportExcel()">
+<input type="checkbox" value="bookname" id="bookname">bookname
+<input type="checkbox" value="bookid" id="bookid">bookid
+<input type="checkbox" value="bookprice" id="bookprice">bookprice
+<input type="checkbox" value="booktime" id="booktime">booktime
+<form action="./importExcel" method="post" enctype="multipart/form-data" >
+    <input type="file" name="file"/>
+    <input type="submit" value="导入excel"/>
+</form>
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>name</td>
+        <td>date</td>
+        <td>type</td>
+        <td>url</td>
+    </tr>
+    <tr th:each="book:${list}">
+        <td th:text="${book.bookid}">id</td>
+        <td th:text="${book.bookname}">name</td>
+        <td th:text="${book.booktime}">date</td>
+        <td th:text="${book.booktypeid}">type</td>
+        <td th:text="${book.bookurl}">url</td>
+    </tr>
+</table>
+<script>
+   function exportExcel() {
+       var a = $('#bookname').prop('checked');
+       var b = $('#bookid').prop('checked');
+       var c = $('#bookprice').prop('checked');
+       var d = $('#booktime').prop('checked');
+       if(a == true){
+               var bookname=  $("#bookname").val();
+       }else{
+           var bookname=null;
+       }
+
+       if(b==true){
+           var bookid=  $("#bookid").val();
+       }else{
+           var bookid=null;
+       }
+
+       if(c==true){
+           var bookprice=  $("#bookprice").val();
+       }else{
+           var bookprice=null;
+       }
+
+       if(d==true){
+           var booktime=  $("#booktime").val();
+       }else{
+           var booktime=null;
+       }
+       location.href="../exportExcel?bookname="+bookname+"&bookid="+bookid+"&bookprice="+bookprice+"&booktime="+booktime;
+
+   }
+
+
+
+</script>
+</body>
+</html>
